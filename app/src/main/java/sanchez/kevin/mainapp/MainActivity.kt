@@ -1,16 +1,15 @@
-package com.example.calculadora
+package sanchez.kevin.mainapp
 
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import net.objecthunter.exp4j.ExpressionBuilder
 import sanchez.kevin.mainapp.R
-import javax.script.ScriptEngineManager
 
 class MainActivity : AppCompatActivity() {
-
     private lateinit var display: TextView
-    private var expression: String = ""
+    private var currentExpression = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,49 +18,36 @@ class MainActivity : AppCompatActivity() {
         display = findViewById(R.id.displayResultField)
 
         val buttons = listOf(
-            R.id.btn0, R.id.btn1, R.id.btn2, R.id.btn3,
-            R.id.btn4, R.id.btn5, R.id.btn6, R.id.btn7,
-            R.id.btn8, R.id.btn9, R.id.btnPlus, R.id.btnSubstract,
-            R.id.btnMultiply, R.id.btnDivide
+            R.id.btn0 to "0", R.id.btn1 to "1", R.id.btn2 to "2",
+            R.id.btn3 to "3", R.id.btn4 to "4", R.id.btn5 to "5",
+            R.id.btn6 to "6", R.id.btn7 to "7", R.id.btn8 to "8", R.id.btn9 to "9",
+            R.id.btnPlus to "+", R.id.btnSubstract to "-",
+            R.id.btnMultiply to "*", R.id.btnDivide to "/"
         )
 
-        val operators = mapOf(
-            R.id.btnPlus to "+",
-            R.id.btnSubstract to "-",
-            R.id.btnMultiply to "*",
-            R.id.btnDivide to "/"
-        )
-
-        // Manejo de números y operadores
-        for (id in buttons) {
+        buttons.forEach { (id, symbol) ->
             findViewById<Button>(id).setOnClickListener {
-                val value = if (id in operators) {
-                    operators[id]
-                } else {
-                    findViewById<Button>(id).text.toString()
-                }
-                expression += value
-                display.text = expression
+                currentExpression += symbol
+                display.text = currentExpression
             }
         }
 
-        // Botón igual (=)
+        findViewById<Button>(R.id.btnClear).setOnClickListener {
+            currentExpression = ""
+            display.text = ""
+        }
+
         findViewById<Button>(R.id.btnEquals).setOnClickListener {
             try {
-                val engine = ScriptEngineManager().getEngineByName("rhino")
-                val result = engine.eval(expression).toString()
-                display.text = result
-                expression = result
+                val expression = ExpressionBuilder(currentExpression).build()
+                val result = expression.evaluate()
+                display.text = result.toInt().toString()
+                currentExpression = result.toString()
             } catch (e: Exception) {
                 display.text = "Error"
-                expression = ""
+                currentExpression = ""
             }
-        }
-
-        // Logica de la limpieza de la calculadora
-        findViewById<Button>(R.id.btnClear).setOnClickListener {
-            expression = ""
-            display.text = ""
         }
     }
 }
+
