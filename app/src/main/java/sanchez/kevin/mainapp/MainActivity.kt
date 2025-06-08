@@ -41,13 +41,25 @@ class MainActivity : AppCompatActivity() {
             try {
                 val expression = ExpressionBuilder(currentExpression).build()
                 val result = expression.evaluate()
-                display.text = result.toInt().toString()
-                currentExpression = result.toString()
+
+                if (result.isFinite()) {
+                    val formattedResult = if (result % 1 == 0.0) {
+                        result.toInt().toString()
+                    } else {
+                        result.toString()
+                    }
+                    display.text = formattedResult
+                    currentExpression = formattedResult
+                } else {
+                    display.text = result.toString()
+                    currentExpression = result.toString()
+                }
             } catch (e: Exception) {
                 display.text = "Error"
                 currentExpression = ""
             }
         }
+
     }
 }
 
