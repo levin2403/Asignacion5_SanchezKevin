@@ -1,3 +1,21 @@
 <resources>
-    <string name="app_name">CalculadorAritmetica_SanchezKevin</string>
+    <string name="app_name">Calculadora</string>
+    <string name="hint_input">Ingresa la operación</string>
+    <string name="btn_result">=</string>
+    <string name="btn_clear">CE</string>
+    <string name="btn_1">1</string>
+    <String name="btn_2">2</String>
+    <String name="btn_3">3</String>
+    <String name="btn_4">4</String>
+    <String name="btn_5">5</String>
+    <String name="btn_6">6</String>
+    <String name="btn_7">7</String>
+    <String name="btn_8">8</String>
+    <String name="btn_9">9</String>
+    <String name="btn_0">0</String>
+    <String name="btn_dot">.</String>
+    <String name="btn_plus">+</String>
+    <String name="btn_minus">-</String>
+    <String name="btn_multiply">*</String>
+    <String name="btn_divide">/</String>
 </resources>
