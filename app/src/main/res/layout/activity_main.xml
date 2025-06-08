@@ -22,7 +22,7 @@
     <GridLayout
         android:id="@+id/calculatorGrid"
         android:layout_width="match_parent"
-        android:layout_height="286dp"
+        android:layout_height="363dp"
         android:layout_gravity="center"
         android:alignmentMode="alignMargins"
         android:columnCount="4"
@@ -113,6 +113,17 @@
             android:id="@+id/btnPlus"
             style="@style/OpButton"
             android:text="+" />
+
+        <!-- Fila 5 porque se me olvido ponerle estos botones -->
+        <Button
+            android:id="@+id/delete_one"
+            style="@style/ClearButton"
+            android:text="<" />
+
+        <Button
+            android:id="@+id/btn_dot"
+            style="@style/ClearButton"
+            android:text="." />
 
     </GridLayout>
 
